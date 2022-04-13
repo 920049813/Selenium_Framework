@@ -1,6 +1,8 @@
 package com.test.wait03;
 
 import com.test.driver.SeleniumDriver;
+import com.test.tools.ExcelUtil;
+import com.test.tools.ReadExcel;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -8,7 +10,10 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class WaitTest {
 
@@ -48,5 +53,50 @@ public class WaitTest {
 
 
 
+    @Test
+    public void testExcel(){
+        Object object = null;
+        String[][] sheet1s = ReadExcel.readExcel("C:\\Users\\ZHANG\\Desktop\\部门座席账号密码.xls", "sheet1");
+        System.out.println(sheet1s.length);
+        for (int i = 0; i < sheet1s.length; i++) {
 
-}
+           // System.out.println(sheet1s[i]);
+
+            for (int j = 0; j < sheet1s[0].length; j++) {
+                System.out.println(sheet1s[i][j]);
+            }
+            }
+        }
+
+
+
+
+
+
+    @DataProvider(name = "test1")
+    public  Object[][] data(){
+        //记得return返回的后面要加引号，必须是Object类
+        String[][] sheet1s = ReadExcel.readExcel("C:\\Users\\ZHANG\\Desktop\\部门座席账号密码.xls", "sheet1");
+       return sheet1s;
+    }
+
+    @Test(dataProvider = "test1")
+    public void testData(String i,String j,String k,String l){
+        System.out.println(i+"----"+j+"----"+k+"------"+l);
+    }
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
